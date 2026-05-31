@@ -1,7 +1,6 @@
 // src/pages/Profile.js
 
 import React, {
-  useContext,
   useState,
 } from "react";
 

@@ -506,8 +506,6 @@ const navBtnStyle = (
 
   borderRadius: "12px",
 
-  border: "none",
-
   cursor: "pointer",
 
   background: active

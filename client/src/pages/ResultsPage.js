@@ -178,7 +178,6 @@ function ResultsPage({
             navigate("/dashboard")
           }
           style={{
-            border: "none",
             padding: "10px 18px",
             borderRadius: "12px",
             background:
