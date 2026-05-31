@@ -35,7 +35,7 @@ app.use(express.json());
 /* ROUTES */
 const authRoutes = require("./api/routes/authRoutes");
 
-app.use("/api/auth", authRoutes);
+app.use("/api", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("SkillGap Backend Running");
