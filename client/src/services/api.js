@@ -1,10 +1,22 @@
 // src/services/api.js
 
+// import axios from "axios";
+
+// // Backend Base URL
+// const API = axios.create({
+//   baseURL: "http://localhost/server/api",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
 import axios from "axios";
+
+// Fallback to localhost:5000 if the environment variable doesn't exist
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 // Backend Base URL
 const API = axios.create({
-  baseURL: "http://localhost/server/api",
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },

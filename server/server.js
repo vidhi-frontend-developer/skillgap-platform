@@ -2,9 +2,34 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
+// Ensure our database file runs and connects on server startup
+require("./database/db"); 
+
 const app = express();
 
-app.use(cors());
+// Configure CORS correctly for Production vs Local Development
+const allowedOrigins = [
+  "http://localhost:3000", // Common local React port
+  "http://localhost:5173", // Common local Vite port
+  "https://your-skillgap-frontend.vercel.app" // ⚠️ REPLACE THIS with your actual live Vercel URL later
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps, curl, or postman)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true, // Crucial if your login/logout utilizes HTTP-only cookies or sessions
+  })
+);
+
 app.use(express.json());
 
 /* ROUTES */
