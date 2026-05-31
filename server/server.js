@@ -11,7 +11,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:3000", // Common local React port
   "http://localhost:5173", // Common local Vite port
-  "https://your-skillgap-frontend.vercel.app" // ⚠️ REPLACE THIS with your actual live Vercel URL later
+  "https://skillgap-platform-2026.vercel.app" // ⚠️ REPLACE THIS with your actual live Vercel URL later
 ];
 
 app.use(
