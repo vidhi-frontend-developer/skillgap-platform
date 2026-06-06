@@ -5,7 +5,7 @@ import axios from "axios";
 // Backend URL
 const BASE_URL =
   process.env.REACT_APP_API_URL ||
-  "http://localhost:5000/api";
+  "https://skillgap-platform-production-7af4.up.railway.app/api";
 
 const API = axios.create({
   baseURL: BASE_URL,
