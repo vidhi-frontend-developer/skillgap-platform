@@ -1,20 +1,12 @@
 // src/services/api.js
 
-// import axios from "axios";
-
-// // Backend Base URL
-// const API = axios.create({
-//   baseURL: "http://localhost/server/api",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
 import axios from "axios";
 
-// Fallback to localhost:5000 if the environment variable doesn't exist
-const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+// Backend URL
+const BASE_URL =
+  process.env.REACT_APP_API_URL ||
+  "http://localhost:5000/api";
 
-// Backend Base URL
 const API = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -26,72 +18,60 @@ const API = axios.create({
 // AUTH APIs
 // ===============================
 
-// LOGIN API
+// LOGIN
 export const loginUser = async (
   email,
   password
 ) => {
-
   try {
-
-    const response =
-      await API.post(
-        "/login.php",
-        {
-          email,
-          password,
-        }
-      );
+    const response = await API.post(
+      "/login",
+      {
+        email,
+        password,
+      }
+    );
 
     return response.data;
-
   } catch (error) {
-
     console.error(
       "Login Error:",
-      error
+      error.response?.data || error.message
     );
 
     return {
       success: false,
       message:
+        error.response?.data?.message ||
         "Server Error",
     };
-
   }
-
 };
 
-// SIGNUP API
+// SIGNUP
 export const signupUser = async (
   userData
 ) => {
-
   try {
-
-    const response =
-      await API.post(
-        "/signup.php",
-        userData
-      );
+    const response = await API.post(
+      "/signup",
+      userData
+    );
 
     return response.data;
-
   } catch (error) {
-
     console.error(
       "Signup Error:",
-      error
+      error.response?.data || error.message
     );
 
     return {
       success: false,
       message:
+        error.response?.data?.message ||
         "Server Error",
     };
-
   }
-
 };
 
 // ===============================
@@ -99,64 +79,53 @@ export const signupUser = async (
 // ===============================
 
 // GET PROFILE
-export const getProfile =
-  async (email) => {
+export const getProfile = async (
+  email
+) => {
+  try {
+    const response = await API.get(
+      `/profile?email=${email}`
+    );
 
-    try {
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Profile Error:",
+      error.response?.data || error.message
+    );
 
-      const response =
-        await API.get(
-          `/profile.php?email=${email}`
-        );
-
-      return response.data;
-
-    } catch (error) {
-
-      console.error(
-        "Profile Error:",
-        error
-      );
-
-      return {
-        success: false,
-        message:
-          "Server Error",
-      };
-
-    }
-
-  };
+    return {
+      success: false,
+      message:
+        error.response?.data?.message ||
+        "Server Error",
+    };
+  }
+};
 
 // UPDATE PROFILE
 export const updateProfile =
   async (userData) => {
-
     try {
-
-      const response =
-        await API.post(
-          "/update-profile.php",
-          userData
-        );
+      const response = await API.post(
+        "/update-profile",
+        userData
+      );
 
       return response.data;
-
     } catch (error) {
-
       console.error(
-        "Update Error:",
-        error
+        "Update Profile Error:",
+        error.response?.data || error.message
       );
 
       return {
         success: false,
         message:
+          error.response?.data?.message ||
           "Server Error",
       };
-
     }
-
   };
 
 // ===============================
@@ -166,62 +135,50 @@ export const updateProfile =
 // SAVE ANALYSIS
 export const saveAnalysis =
   async (analysisData) => {
-
     try {
-
-      const response =
-        await API.post(
-          "/save-analysis.php",
-          analysisData
-        );
+      const response = await API.post(
+        "/save-analysis",
+        analysisData
+      );
 
       return response.data;
-
     } catch (error) {
-
       console.error(
         "Save Analysis Error:",
-        error
+        error.response?.data || error.message
       );
 
       return {
         success: false,
         message:
+          error.response?.data?.message ||
           "Server Error",
       };
-
     }
-
   };
 
-// GET USER ANALYSIS HISTORY
+// GET ANALYSIS HISTORY
 export const getAnalysisHistory =
   async (email) => {
-
     try {
-
-      const response =
-        await API.get(
-          `/analysis-history.php?email=${email}`
-        );
+      const response = await API.get(
+        `/analysis-history?email=${email}`
+      );
 
       return response.data;
-
     } catch (error) {
-
       console.error(
-        "History Error:",
-        error
+        "Analysis History Error:",
+        error.response?.data || error.message
       );
 
       return {
         success: false,
         message:
+          error.response?.data?.message ||
           "Server Error",
       };
-
     }
-
   };
 
 export default API;
