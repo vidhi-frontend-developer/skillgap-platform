@@ -4,7 +4,6 @@ import axios from "axios";
 
 // Backend URL
 const BASE_URL =
-  process.env.REACT_APP_API_URL ||
   "https://skillgap-platform-production-7af4.up.railway.app/api";
 
 const API = axios.create({
@@ -31,7 +30,7 @@ export const loginUser = async (
         password,
       }
     );
-
+console.log("Login Response:", BASE_URL);
     return response.data;
   } catch (error) {
     console.error(
